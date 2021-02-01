@@ -1,15 +1,40 @@
 <template>
     <div>
-        <form>
-            <input type="text" name="title" placeholder="Add Todo...">
+        <form @submit="addTodo">
+            <input type="text" v-model="title" name="title" placeholder="Add Todo...">
             <input type="submit" value="Submit" class="btn">
         </form>
     </div>
 </template>
 
 <script>
+// import uuid from "uuid";
+
 export default {
-    name: "AddTodo"
+    name: "AddTodo",
+    data() {
+        return {
+            title: ""
+        }
+    },
+    methods: {
+        addTodo(e) {
+            e.preventDefault();
+
+            const newTodo = {
+                // temporary solution below; this part of the tutorial doesn't seem to work
+                // id: uuid.v4(),
+                id: 6,
+                title: this.title,
+                completed: false
+            }
+            // send up to parent
+            this.$emit("add-todo", newTodo);
+
+            // to clear the input bar
+            this.title = "";
+        }
+    }
 }
 </script>
 
