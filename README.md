@@ -16,10 +16,6 @@ You might also want to do this:
 
 ===
 
-# vue-tutorial-by-traversy
-
-This tutorial was found on [YouTube](https://www.youtube.com/watch?v=Wy9q22isx3U).
-
 ## Project setup
 ```
 npm install
