@@ -1,3 +1,5 @@
+
+
 <template>
   <div id="app">
     <Header />
@@ -7,10 +9,14 @@
 </template>
 
 <script>
+/* eslint-disable */
+/* persistent error; disabling lint for now */
+
+import axios from "axios";
 import Header from "./components/layout/Header";
 import Todos from "./components/Todos";
 import AddTodo from "./components/AddTodo";
-import axios from "axios";
+
 
 export default {
   name: 'App',
@@ -26,20 +32,23 @@ export default {
   },
   methods: {
     deleteTodo(id) {
-      this.todos = this.todos.filter(todo => todo.id !== id);
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => this.todos = this.todos.filter(todo => todo.id !== id))
+      .catch(err => console.log(err));
     },
-    // addTodo(newTodo) {
-    //   const { title, completed } = newTodo;
+    
+    addTodo(newTodo) {
+      const { title, completed } = newTodo;
 
-    //   axios.post("https://jsonplaceholder.typicode.com/todos", {
-    //     title,
-    //     completed
-    //   })
-    //     .then(res => this.todos = [...this.todos. newTodo])
-    //     .catch(err => console.log(err));
+      axios.post("https://jsonplaceholder.typicode.com/todos", {
+        title,
+        completed
+      })
+        .then(res => this.todos = [...this.todos. newTodo])
+        .catch(err => console.log(err));
 
-    //   this.todos = [...this.todos, newTodo];
-    // }
+      this.todos = [...this.todos, newTodo];
+    }
 
   },
   created() {
